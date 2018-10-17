@@ -4,6 +4,5 @@
     "require": {
         "guzzlehttp/guzzle": "^6.3"
     },
-    "license": "SS",
     "minimum-stability": "dev"
 }
