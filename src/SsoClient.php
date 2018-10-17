@@ -1,5 +1,5 @@
 <?php
-namespace Ss;
+namespace Softwareseni\Sso;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

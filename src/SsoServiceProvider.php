@@ -1,6 +1,6 @@
 <?php
 
-namespace Ss;
+namespace Softwareseni\Sso;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +23,6 @@ class SsoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Ss\SsoClient');
+        $this->app->make('Softwareseni\Sso\SsoClient');
     }
 }
