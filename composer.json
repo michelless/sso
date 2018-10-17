@@ -1,0 +1,9 @@
+{
+    "name": "ss/sso",
+    "description": "SoftwareSeni SSO",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "license": "SS",
+    "minimum-stability": "dev"
+}
