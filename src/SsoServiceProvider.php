@@ -14,9 +14,9 @@ class SsoServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/sso.php' => config_path('sso.php'),
+            __DIR__.'/config/sso.php' => config_path('sso.php'),
         ]);
-        
+
         include __DIR__.'/routes.php';
     }
 
