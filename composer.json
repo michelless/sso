@@ -1,5 +1,5 @@
 {
-    "name": "ss/sso",
+    "name": "softwareseni/sso",
     "description": "SoftwareSeni SSO",
     "require": {
         "guzzlehttp/guzzle": "^6.3"
