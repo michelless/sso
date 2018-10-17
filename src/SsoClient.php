@@ -8,14 +8,23 @@ use GuzzleHttp\Client;
 
 class SsoClient extends Controller
 {
-    public function callback($token)
+    public function redirect()
     {
-    	$configs = include __DIR__.'/../config/sso.php';
+    	$app_id = config('sso.app_id');
+    	$app_secret = config('sso.app_secret');
+    	$redirect = config('sso.redirect');
+    	$url = config('sso.url')."oauth/login";
+
+    	return redirect($url.'?app_id='.$app_id.'&app_secret='.$app_secret.'&redirect='.$redirect);
+    }
+
+    public function user($token)
+    {
     	$client = new Client();
     	$headers = [
 		    'Authorization' => 'Bearer ' . $token,   
 		];
-		$response = $client->request('GET', $configs['host'], [
+		$response = $client->request('GET', config('sso.url')."api/user", [
 	        'headers' => $headers
 	    ]);
 	    // $data = json_decode($response->getBody());
