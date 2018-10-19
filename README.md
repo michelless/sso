@@ -2,7 +2,7 @@
 * Laravel 5 
 
 ## Getting Started
-1. Install the package by composer:
+1. Install the package by composer.
 ```
 composer require softwareseni/sso
 ```
@@ -28,7 +28,7 @@ protected $routeMiddleware = [
 
 ];
 ```
-5. Add to your route
+5. Add this code to your web route.
 ```
 Route::get('/login')->middleware('sso');
 ```
