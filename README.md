@@ -68,7 +68,6 @@ class OauthController extends Controller
 
             $user = $this->user->where('email', $dt->email)->first();
             if ($user) {
-                $request->session()->put('token', $request->token);
                 Auth::login($user);
                 return redirect($request->redirect);
             } else {
