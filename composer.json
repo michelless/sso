@@ -1,0 +1,13 @@
+{
+    "name": "softwareseni/sso",
+    "description": "SoftwareSeni SSO",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Softwareseni\\Sso\\": "src/"
+        }
+    }
+}           
