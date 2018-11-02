@@ -25,7 +25,7 @@ class CheckToken
                 auth()->guard()->logout();
                 $request->session()->invalidate();
             }
-            return $next($request);
         }
+        return $next($request);
     }
 }
