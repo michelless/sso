@@ -21,6 +21,15 @@ php artisan vendor:publish --provider="Softwareseni\SS\SsoServiceProvider"
 > Once you publish, it publishes the sso configuration file at config path.
 4. Add the middleware to your `app/Http/Kernel.php`.
 ```
+protected $middlewareGroups = [
+        'web' => [
+		....
+		 \Softwareseni\Sso\Middleware\ClientLogin::class,
+		 \Softwareseni\Sso\Middleware\CheckToken::class,
+        ],
+	....
+];
+	
 protected $routeMiddleware = [
 
 ....
@@ -31,7 +40,7 @@ protected $routeMiddleware = [
 5. Add this code to your web route.
 ```
 Route::get('/login')->middleware('sso');
-=======
+```
 5. Create Oauth Controller
 ```
 <?php
@@ -54,22 +63,30 @@ class OauthController extends Controller
     {
     	$sso = new SsoClient();
     	$data = $sso->user($request->token);
-	    $user = $this->user->where('email', $data->email)->first();
-	    Auth::login($user);
+        if ($data[0]['status'] == true) {
+            $dt = $data[0]['data'];
 
-	    return redirect($request->redirect);
+            $user = $this->user->where('email', $dt->email)->first();
+            if ($user) {
+                $request->session()->put('token', $request->token);
+                Auth::login($user);
+                return redirect($request->redirect);
+            } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'User not found.'
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Token Invalid.'
+            ], 500);
+        }
     }
 }
 ```
 6. Add this code to your web route.
 ```
 Route::get('/oauth/callback', 'OauthController@callback')->name('callback');
-```
-7. Add this code to your `app/Http/Kernel.php`
-```
-protected $middlewareGroups = [
-        'web' => [
-		....
-		 \Softwareseni\Sso\Middleware\ClientLogin::class,
-        ],
 ```
