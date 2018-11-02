@@ -8,7 +8,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
-
 class SsoClient extends Controller
 {
     public function redirect()
