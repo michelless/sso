@@ -54,10 +54,26 @@ class OauthController extends Controller
     {
     	$sso = new SsoClient();
     	$data = $sso->user($request->token);
-	    $user = $this->user->where('email', $data->email)->first();
-	    Auth::login($user);
+        if ($data[0]['status'] == true) {
+            $dt = $data[0]['data'];
 
-	    return redirect($request->redirect);
+            $user = $this->user->where('email', $dt->email)->first();
+            if ($user) {
+                $request->session()->put('token', $request->token);
+                Auth::login($user);
+                return redirect($request->redirect);
+            } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'User not found.'
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Token Invalid.'
+            ], 500);
+        }
     }
 }
 ```
@@ -71,5 +87,6 @@ protected $middlewareGroups = [
         'web' => [
 		....
 		 \Softwareseni\Sso\Middleware\ClientLogin::class,
+		 \Softwareseni\Sso\Middleware\CheckToken::class,
         ],
 ```
